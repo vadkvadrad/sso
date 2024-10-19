@@ -16,15 +16,7 @@ func main() {
 	cfg := config.MustLoad()
 
 	log := setupLogger(cfg.Env)
-	log.Info("start application",
-		slog.String("env", cfg.Env),
-		slog.Any("cfg", cfg),
-		slog.Int("port", cfg.GRPC.Port),
-	)
-
-	log.Debug("debug message")
-	log.Error("error message")
-	log.Warn("warn message")
+	log.Info("start application", slog.Any("config", cfg))
 
 	// TODO: инициализировать приложение (app)
 
