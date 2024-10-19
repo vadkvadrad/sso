@@ -3,6 +3,7 @@ package main
 import (
 	"log/slog"
 	"os"
+	"sso/internal/app"
 	"sso/internal/config"
 )
 
@@ -18,8 +19,9 @@ func main() {
 	log := setupLogger(cfg.Env)
 	log.Info("start application", slog.Any("config", cfg))
 
-	// TODO: инициализировать приложение (app)
+	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTtl)
 
+	application.GRPCServer.MustRun()
 	// TODO: запустить grp-Сервер приложения
 
 }
