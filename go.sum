@@ -1,12 +1,12 @@
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0=
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
+github.com/GolangLessons/protos v0.1.2 h1:HeS3FJuuHEAV3qbokfx7e/dkNg27SwNB7ooo+BIb1Bs=
+github.com/GolangLessons/protos v0.1.2/go.mod h1:pYqpiLUwBdosUGozwwVnuzmduQs+jXY/MfNSA2j10o0=
 github.com/ilyakaznacheev/cleanenv v1.5.0 h1:0VNZXggJE2OYdXE87bfSSwGxeiGt9moSR2lOrsHHvr4=
 github.com/ilyakaznacheev/cleanenv v1.5.0/go.mod h1:a5aDzaJrLCQZsazHol1w8InnDcOX0OColm64SlIi6gk=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
-github.com/vadkvadrad/protos v0.0.0-20241019112630-8bc618fe9a64 h1:3VpTkyGLM07jlrO384TgJcTK/r7HhFIiWQ90CxCoXiI=
-github.com/vadkvadrad/protos v0.0.0-20241019112630-8bc618fe9a64/go.mod h1:vqJgHtJR+JYTR6jLqvH9chK0XgFis00MYGjXlnsF9QY=
 github.com/vadkvadrad/protos v0.0.2 h1:eYpIEV/TXUHsvbYncWKGU7LBXg3xfof/LmD6K+cwH5o=
 github.com/vadkvadrad/protos v0.0.2/go.mod h1:vqJgHtJR+JYTR6jLqvH9chK0XgFis00MYGjXlnsF9QY=
 golang.org/x/net v0.30.0 h1:AcW1SDZMkb8IpzCdQUaIq2sP4sZ4zw+55h6ynffypl4=

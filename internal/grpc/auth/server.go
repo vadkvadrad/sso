@@ -2,7 +2,7 @@ package auth
 
 import (
 	"context"
-	ssov1 "github.com/vadkvadrad/protos/gen/go/sso"
+	ssov1 "github.com/GolangLessons/protos/gen/go/sso"
 	"google.golang.org/grpc"
 )
 
@@ -15,7 +15,9 @@ func Register(gRPC *grpc.Server) {
 }
 
 func (s *serverAPI) Login(ctx context.Context, req *ssov1.LoginRequest) (*ssov1.LoginResponse, error) {
-	panic("implement me")
+	return &ssov1.LoginResponse{
+		Token: req.GetEmail(),
+	}, nil
 }
 func (s *serverAPI) Register(ctx context.Context, req *ssov1.RegisterRequest) (*ssov1.RegisterResponse, error) {
 	panic("implement me")
