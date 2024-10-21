@@ -3,8 +3,10 @@ package main
 import (
 	"log/slog"
 	"os"
+	"os/signal"
 	"sso/internal/app"
 	"sso/internal/config"
+	"syscall"
 )
 
 const (
@@ -21,7 +23,17 @@ func main() {
 
 	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTtl)
 
-	application.GRPCServer.MustRun()
+	go application.GRPCServer.MustRun()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
+
+	sign := <-stop
+
+	log.Info("stop signal received", slog.String("signal", sign.String()))
+
+	application.GRPCServer.Stop()
+	log.Info("application stopped")
 	// TODO: запустить grp-Сервер приложения
 
 }
