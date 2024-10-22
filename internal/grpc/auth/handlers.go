@@ -24,9 +24,32 @@ func (s *serverAPI) Login(ctx context.Context, req *ssov1.LoginRequest) (*ssov1.
 }
 
 func (s *serverAPI) Register(ctx context.Context, req *ssov1.RegisterRequest) (*ssov1.RegisterResponse, error) {
-	panic("implement me")
+	if err := validateRegister(req); err != nil {
+		return nil, err
+	}
+
+	userID, err := s.auth.RegisterNewUser(ctx, req.GetEmail(), req.GetPassword())
+	if err != nil {
+		// TODO: обработать ошибку
+		return nil, status.Error(codes.Internal, "internal server error")
+	}
+
+	return &ssov1.RegisterResponse{
+		UserId: userID,
+	}, nil
 }
 
 func (s *serverAPI) IsAdmin(ctx context.Context, req *ssov1.IsAdminRequest) (*ssov1.IsAdminResponse, error) {
-	panic("implement me")
+	if err := validateIsAdmin(req); err != nil {
+		return nil, err
+	}
+
+	isAdmin, err := s.auth.IsAdmin(ctx, req.GetUserId())
+	if err != nil {
+		// TODO: обработать ошибку
+		return nil, status.Error(codes.Internal, "internal server error")
+	}
+	return &ssov1.IsAdminResponse{
+		IsAdmin: isAdmin,
+	}, nil
 }

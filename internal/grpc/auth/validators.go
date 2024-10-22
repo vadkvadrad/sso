@@ -30,3 +30,25 @@ func validateLogin(req *ssov1.LoginRequest) error {
 	}
 	return nil
 }
+
+func validateRegister(req *ssov1.RegisterRequest) error {
+	err := validation.Validate(req.GetEmail(), validation.Required, validation.NilOrNotEmpty, is.Email,
+		validation.Length(5, 20))
+	if err != nil {
+		return err
+	}
+
+	err = validation.Validate(req.GetPassword(), validation.Required, validation.NilOrNotEmpty,
+		validation.Length(5, 20))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func validateIsAdmin(req *ssov1.IsAdminRequest) error {
+	if req.UserId == emptyValue {
+		return status.Error(codes.InvalidArgument, "app id is required")
+	}
+	return nil
+}
