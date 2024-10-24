@@ -2,11 +2,17 @@ package auth
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"log/slog"
 	"sso/internal/domain/models"
+	"sso/internal/storage"
 	"time"
+)
+
+var (
+	ErrInvalidCredentials = errors.New("invalid credentials")
 )
 
 type Auth struct {
@@ -67,9 +73,29 @@ func (a *Auth) Login(
 
 	user, err := a.userProvider.User(ctx, email)
 	if err != nil {
-		log.Error("failed to find user", err.Error())
+		if errors.Is(err, storage.ErrUserNotFound) {
+			a.log.Warn("user not found", err.Error())
+
+			return "", fmt.Errorf("%s: %w", op, ErrInvalidCredentials)
+
+		}
+
+		a.log.Error("filed to get user", err.Error())
 		return "", fmt.Errorf("%s: %w", op, err)
 	}
+	if err := bcrypt.CompareHashAndPassword(user.PassHash, []byte(password)); err != nil {
+		a.log.Info("invalid password", err.Error())
+		return "", fmt.Errorf("%s: %w", op, ErrInvalidCredentials)
+	}
+
+	var app models.App
+	app, err = a.appProvider.App(ctx, appID)
+
+	if err != nil {
+		return "", fmt.Errorf("%s: %w", op, err)
+	}
+
+	log.Info("user logged successfully")
 }
 
 func (a *Auth) RegisterNewUser(
@@ -102,7 +128,7 @@ func (a *Auth) RegisterNewUser(
 	return id, nil
 }
 
-func (a *Auth) login(
+func (a *Auth) IsAdmin(
 	ctx context.Context,
 	userID int64,
 ) (bool, error) {
